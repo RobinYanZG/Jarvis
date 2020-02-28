@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon -e ts,tsx --exec ts-node ./basic/jarvis-script/launch",
-    "lint": "tsc --noEmit && eslint 'basic/**/*.ts'",
+    "lint": "tsc --noEmit && eslint basic/**/* command/**/* --ext .ts --ext .tsx --fix --quiet --max-warnings 10",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,8 +30,14 @@
     "@typescript-eslint/eslint-plugin": "^2.21.0",
     "@typescript-eslint/parser": "^2.21.0",
     "eslint": "^6.8.0",
+    "husky": "^4.2.3",
     "nodemon": "^2.0.2",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn lint"
+    }
   }
 }
