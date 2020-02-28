@@ -1,0 +1,37 @@
+{
+  "name": "jarvis",
+  "version": "0.0.1",
+  "description": "Wechat robot for Robin",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -e ts,tsx --exec ts-node ./basic/jarvis-script/launch",
+    "lint": "tsc --noEmit && eslint 'basic/**/*.ts'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobinYanZG/Jarvis.git"
+  },
+  "keywords": [],
+  "author": "RobinYan<robinyzg@hotmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RobinYanZG/Jarvis/issues"
+  },
+  "homepage": "https://github.com/RobinYanZG/Jarvis#readme",
+  "dependencies": {
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "koa": "^2.11.0",
+    "pm2": "^4.2.3"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.11.2",
+    "@typescript-eslint/eslint-plugin": "^2.21.0",
+    "@typescript-eslint/parser": "^2.21.0",
+    "eslint": "^6.8.0",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.2"
+  }
+}

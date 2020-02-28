@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2016",
+  },
+  "include": [
+    "./basic/**/*.ts",
+    "./basic/**/*.tsx",
+    "./command/**/*.ts",
+    "./command/**/*.tsx",
+  ]
+}
