@@ -1,6 +1,7 @@
 import { Context } from 'koa'
 
 const sportKing = (ctx: Context): void => {
+  console.log(ctx.request.body)
   ctx.body = {
     rs: 1,
     tip: '这里是返回的内容，utf-8格式中文，不需要转码',
@@ -8,4 +9,4 @@ const sportKing = (ctx: Context): void => {
   }
 }
 
-export default sportKing;
+export default sportKing
