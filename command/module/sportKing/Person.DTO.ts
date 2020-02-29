@@ -17,8 +17,8 @@ export default class Person {
     this.t = options.t || 0
   }
 
-  public set time(t: number) {
-    this.t = t
+  public get time(): number {
+    return this.t
   }
 
   public get nickName(): string {
