@@ -31,6 +31,7 @@ module.exports = {
         '@typescript-eslint'
     ],
     rules: {
+        "prefer-destructuring": ["error", {"object": true, "array": false}],
         "indent": ["error", 2],
         "semi": ["error", "never"],
         "comma-dangle": ["error", "never"],

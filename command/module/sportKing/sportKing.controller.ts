@@ -2,16 +2,17 @@ import { Context } from 'koa'
 
 import Person from './sportKing.DTO'
 import { translate } from './utils'
+import Message from './Message.DTO'
 
 const TAG = '打卡'
 
 const sportKing = (ctx: Context): void => {
   const { body } = ctx.request
 
-  const content = translate(body.content)
-  const { atlist, robotid } = body
+  const message = new Message(body)
 
-  if (atlist.indexOf(robotid) < 0 || !content.startsWith(TAG)) {
+
+  if (!message.isDirect || !message.pureContent.startsWith(TAG)) {
     return
   }
 
@@ -20,7 +21,6 @@ const sportKing = (ctx: Context): void => {
     name: translate(nickname),
     id: mid
   })
-  // 测试一下 什么是nickname 和displayname
   console.log(person)
   ctx.body = {
     rs: 1,
@@ -30,28 +30,3 @@ const sportKing = (ctx: Context): void => {
 }
 
 export default sportKing
-
-// {
-//   u: '123784',
-//   robotnickname: [ 'Jarvis(Robin\\u2019 bot)', 'Jarvis(Robin\\u2019 bot)' ],
-//   gid: '450653',
-//   robotid: 'wxid_p8par65j4o512',
-//   mid: 'sao261893666',
-//   nickname: '\\u8089\\u997C\\u83DC\\u5305\\u897F\\u74DC',
-//   displayname: '',
-//   skw: '19064',
-//   gname: 'Jarvis\\u6D4B\\u8BD5',
-//   content: '\\u738B\\u8005',
-//   own: 'sao261893666',
-//   'ownname ': '\\u8089\\u997C\\u83DC\\u5305\\u897F\\u74DC',
-//   msgid: '92235663702682298',
-//   msgtype: '1',
-//   isadmin: '0',
-//   gadmin: ',,,sao261893666',
-//   username: 'sao261893666',
-//   atmod: '1',
-//   gusername: '20020887336@chatroom',
-//   vol: '3.74',
-//   atlist: '',
-//   voltype: 'xiaowing3'
-// }
