@@ -21,11 +21,10 @@ const sportKing = (ctx: Context): void => {
     id: mid,
     t: getNumberFromString(message.pureContent)
   })
-  console.log(person)
 
   ctx.body = {
     rs: 1,
-    tip: '#@sao261893666# yes', // @人有问题
+    tip: `${person.nickName}打卡${person.time}分钟，成功录入`, // @人有问题
     end: 0
   }
 }

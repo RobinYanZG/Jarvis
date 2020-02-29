@@ -20,4 +20,8 @@ export default class Person {
   public set time(t: number) {
     this.t = t
   }
+
+  public get nickName(): string {
+    return this.name
+  }
 }
