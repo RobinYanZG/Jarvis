@@ -14,6 +14,7 @@ export default class Person {
   constructor(options: PersonOptions) {
     this.name = options.name
     this.wechatId = options.id
+    this.t = 0
   }
 
   public set time(t: number) {
