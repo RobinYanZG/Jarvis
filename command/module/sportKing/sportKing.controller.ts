@@ -1,20 +1,27 @@
 import { Context } from 'koa'
 
+import Person from './sportKing.DTO'
+import { translate } from './utils'
+
 const TAG = '打卡'
 
 const sportKing = (ctx: Context): void => {
   const { body } = ctx.request
 
-  const content = unescape(body.content.replace(/\\u/g, '%u'))
+  const content = translate(body.content)
   const { atlist, robotid } = body
 
   if (atlist.indexOf(robotid) < 0 || !content.startsWith(TAG)) {
     return
   }
 
-  const { nickname, mid, displayname } = body
-// 测试一下 什么是nickname 和displayname
-
+  const { nickname, mid } = body
+  const person = new Person({
+    name: translate(nickname),
+    id: mid
+  })
+  // 测试一下 什么是nickname 和displayname
+  console.log(person)
   ctx.body = {
     rs: 1,
     tip: '#@sao261893666# yes', // @人有问题
