@@ -11,7 +11,6 @@ const sportKing = (ctx: Context): void => {
 
   const message = new Message(body)
 
-
   if (!message.isDirect || !message.pureContent.startsWith(TAG)) {
     return
   }

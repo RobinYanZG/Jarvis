@@ -40,7 +40,7 @@ export default class Message {
   }
 
   get pureContent(): string {
-    return this.msg.replace(`@${this.robotName}`, '')
+    return this.msg.replace(`@${this.robotName}`, '').trim()
   }
 }
 
