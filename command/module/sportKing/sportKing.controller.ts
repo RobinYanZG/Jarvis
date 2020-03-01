@@ -1,12 +1,14 @@
 import { Context } from 'koa'
 
-import Person from './Person.DTO'
+import User from './User.DTO'
+import Record from './Record.DTO'
 import { translate, getNumberFromString } from './utils'
-import Message from './Message.DTO'
+import Message from './Message'
+import { createUserIfNotExist, saveRecord } from './sportKing.service'
 
 const TAG = '打卡'
 
-const sportKing = (ctx: Context): void => {
+const sportKing = async (ctx: Context): Promise<undefined> => {
   const { body } = ctx.request
 
   const message = new Message(body)
@@ -16,17 +18,20 @@ const sportKing = (ctx: Context): void => {
   }
 
   const { nickname, mid } = body
-  const person = new Person({
-    name: translate(nickname),
-    id: mid,
-    t: getNumberFromString(message.pureContent)
-  })
+  const time = getNumberFromString(message.pureContent)
+  const record = new Record(time, mid)
+
+  const user = new User(mid, translate(nickname))
+
+  await saveRecord(record)
 
   ctx.body = {
     rs: 1,
-    tip: `${person.nickName}打卡${person.time}分钟，成功录入`, // @人有问题
+    tip: `${user.username}打卡${time}分钟，成功录入`, // @人有问题
     end: 0
   }
+
+  createUserIfNotExist(user)
 }
 
 export default sportKing

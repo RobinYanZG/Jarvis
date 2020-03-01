@@ -20,15 +20,20 @@
   },
   "homepage": "https://github.com/RobinYanZG/Jarvis#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.1",
+    "hydrogen-js-sdk": "^2.2.2",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
+    "mysql": "^2.18.1",
+    "pg": "^7.18.2",
     "pm2": "^4.2.3"
   },
   "devDependencies": {
     "@types/koa": "^2.11.2",
     "@types/koa-bodyparser": "^4.3.0",
+    "@types/pg": "^7.14.1",
     "@typescript-eslint/eslint-plugin": "^2.21.0",
     "@typescript-eslint/parser": "^2.21.0",
     "eslint": "^6.8.0",
