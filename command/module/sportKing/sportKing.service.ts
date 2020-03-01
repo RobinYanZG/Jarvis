@@ -27,18 +27,19 @@ export const createUserIfNotExist = (u: User): Promise<object> => new Promise(re
   query.equalTo('wechatId', '==', u.wechatId)
   query.find().then(res => {
     if (Array.isArray(res) && res.length > 0) {
-      return resolve()
+      resolve()
+    } else {
+      const q = Bb.ins.Query('user')
+      q.set('wechatId', u.wechatId)
+      q.set('username', u.username)
+      q.set('profile', u.profile)
+      query.save().then(r => {
+        resolve(r)
+      }).catch(err => {
+        console.error(err)
+      })
     }
 
-    const q = Bb.ins.Query('user')
-    q.set('wechatId', u.wechatId)
-    q.set('username', u.username)
-    q.set('profile', u.profile)
-    query.save().then(r => {
-      resolve(r)
-    }).catch(err => {
-      console.error(err)
-    })
   })
 })
 
