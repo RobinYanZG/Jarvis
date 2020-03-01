@@ -13,5 +13,8 @@
     "./basic/**/*.tsx",
     "./command/**/*.ts",
     "./command/**/*.tsx",
+  ],
+  "exclude": [
+    "./node_modules"
   ]
 }

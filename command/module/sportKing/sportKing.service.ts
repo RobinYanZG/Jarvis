@@ -12,7 +12,7 @@ export const findUserById = async (id: string): Promise<object> => new Promise(r
 
 export const saveRecord = (r: Record): Promise<object> => new Promise(resolve => {
   const query = Bb.ins.Query('record')
-  query.set('time', `${r.time}`)
+  query.set('time', r.time)
   query.set('userId', r.userId)
 
   query.save().then(res => {
@@ -26,8 +26,19 @@ export const createUserIfNotExist = (u: User): Promise<object> => new Promise(re
   const query = Bb.ins.Query('user')
   query.equalTo('wechatId', '==', u.wechatId)
   query.find().then(res => {
-    console.log(res)
-    resolve()
+    if (Array.isArray(res) && res.length > 0) {
+      return resolve()
+    }
+
+    const q = Bb.ins.Query('user')
+    q.set('wechatId', u.wechatId)
+    q.set('username', u.username)
+    q.set('profile', u.profile)
+    query.save().then(r => {
+      resolve(r)
+    }).catch(err => {
+      console.error(err)
+    })
   })
 })
 
