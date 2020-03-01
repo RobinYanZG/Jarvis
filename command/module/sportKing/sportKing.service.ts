@@ -28,14 +28,14 @@ export const createUserIfNotExist = (u: User): Promise<object> => new Promise(re
   query.equalTo('wechatId', '==', u.wechatId)
   query.find().then(res => {
     if (Array.isArray(res) && res.length > 0) {
-        console.log('user existed:', u.username)
-        resolve()
+      console.log('user existed:', u.username)
+      resolve()
     } else {
       const q = Bb.ins.Query('user')
       q.set('wechatId', u.wechatId)
       q.set('username', u.username)
       q.set('profile', u.profile) // set方法不支持object类型，需改Npm package内的set方法支持object
-      query.save().then(r => {
+      q.save().then(r => {
         console.log('user created:', u.username)
         resolve(r)
       }).catch(err => {
