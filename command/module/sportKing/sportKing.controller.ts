@@ -47,6 +47,7 @@ export const cutoff = async (ctx: Context, next: Next): Promise<undefined> => {
   const record = await getRecordsByDay();
   let str = '昨日打卡总结：\n'
   record.map(r => {
+    if(!r.user) return;
     str += `${r.user.username}: ${r._sumTime}分钟 \n`
   })
 
