@@ -5,10 +5,13 @@ export default class User {
 
   private pUsername: string;
 
-  constructor(wechatId: string, username: string, profile?: object) {
+  private pId: string;
+
+  constructor(wechatId: string, username: string, profile?: object, id?: string) {
     this.pUsername = username
     this.pWechatId = wechatId
     this.pProfile = profile || {}
+    this.pId = id || ''
   }
 
   public get username(): string {
@@ -21,5 +24,13 @@ export default class User {
 
   public get profile(): object {
     return this.pProfile
+  }
+
+  public get id(): string {
+    return this.pId;
+  }
+
+  public setObjectId(id: string) {
+    this.pId = id;
   }
 }

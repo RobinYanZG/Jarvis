@@ -1,27 +1,28 @@
-import { Context } from 'koa'
+import { Context, Next } from 'koa'
 
 import User from './User.DTO'
 import Record from './Record.DTO'
 import { translate, getNumberFromString } from './utils'
 import Message from './Message'
-import { createUserIfNotExist, saveRecord } from './sportKing.service'
+import { createUserIfNotExist, saveRecord, getRecordsByDay, getUserAndCreateIfNotExist } from './sportKing.service'
 
 const TAG = '打卡'
 
-const sportKing = async (ctx: Context): Promise<undefined> => {
+export const sportKing = async (ctx: Context, next: Next): Promise<undefined> => {
   const { body } = ctx.request
 
   const message = new Message(body)
 
   if (!message.isDirect || !message.pureContent.startsWith(TAG)) {
-    return
+    return next()
   }
 
   const { nickname, mid } = body
-  const time = getNumberFromString(message.pureContent)
-  const record = new Record(time, mid)
+  const tempUser = new User(mid, translate(nickname))
+  const user = await getUserAndCreateIfNotExist(tempUser);
 
-  const user = new User(mid, translate(nickname))
+  const time = getNumberFromString(message.pureContent)
+  const record = new Record(time, user.id)
 
   await saveRecord(record)
 
@@ -31,7 +32,31 @@ const sportKing = async (ctx: Context): Promise<undefined> => {
     end: 0
   }
 
-  createUserIfNotExist(user)
+  return;
+}
+
+export const cutoff = async (ctx: Context, next: Next): Promise<undefined> => {
+  const { body } = ctx.request
+
+  const message = new Message(body)
+
+  if (!message.isDirect || message.pureContent !== '昨日结算') {
+    return next()
+  }
+
+  const record = await getRecordsByDay();
+  let str = '昨日打卡总结：\n'
+  record.map(r => {
+    str += `${r.user.username}: ${r._sumTime}分钟 \n`
+  })
+
+  ctx.body = {
+    rs: 1,
+    tip: str,
+    end: 0
+  }
+
+  return ;
 }
 
 export default sportKing
